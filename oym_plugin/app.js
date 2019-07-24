@@ -4,6 +4,8 @@
  */
 
 'use strict';
+// This is buggy
+// var request = require('request');
 
 (function () {
     Office.initialize = function (reason) {
@@ -16,17 +18,56 @@
             }
             // TODO2: Assign event handlers and other initializaton logic.
             $('#insert-paragraph').click(insertParagraph);
+            $('#replace-text').click(replaceText);
         });
     };
 
     // TODO3: Add handlers and business logic functions here.
     function insertParagraph() {
         Word.run(function (context) {
-    
-            // TODO4: Queue commands to insert a paragraph into the document.
-            var docBody = context.document.body;
-            docBody.insertParagraph("Office has several versions, including Office 2016, Office 365 Click-to-Run, and Office on the web.",
-                                    "Start");
+            var documentBody = context.document.body;
+            context.load(documentBody);
+            return context.sync().then(function(){
+                // Get all Document Text and use as Prompt
+                var prompt = documentBody.text
+                console.log(prompt);
+                // POST Request
+
+                // request.post('<insert URL>', {
+                //     json: {
+                //         model_prompt: prompt
+                //     }
+                // }, (error, res, body) => {
+                //     if (error) {
+                //         console.error(error);
+                //         return;
+                //     }
+                //     console.log(`statusCode: ${res.statusCode}`);
+                //     console.log(body);
+
+                //     // Write to Word Document
+                //     var docBody = context.document.body;
+                //     docBody.insertParagraph(body);
+                //     return context.sync();
+                // });
+            })
+        })
+        .catch(function (error) {
+            console.log("Error: " + error);
+            if (error instanceof OfficeExtension.Error) {
+                console.log("Debug info: " + JSON.stringify(error.debugInfo));
+            }
+        });
+    };
+
+    function replaceText() {
+        Word.run(function (context) {
+            
+            const doc = context.document;
+            const originalRange = doc.getSelection();
+            console.log(originalRange);
+            // originalRange.insertText("many", "Replace");
+
             return context.sync();
         })
         .catch(function (error) {
