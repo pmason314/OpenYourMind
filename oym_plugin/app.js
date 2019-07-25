@@ -31,7 +31,32 @@
                 // Get all Document Text and use as Prompt
                 var prompt = documentBody.text
                 console.log(prompt);
-                // POST Request
+
+                // POST Request vanilla
+                var http = new XMLHttpRequest();
+                var url = 'http://localhost:5000';
+                var params = JSON.stringify({'raw_text': String(prompt)})
+                http.open('POST', url, true);
+
+                //Send the proper header information along with the request
+                http.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+                http.setRequestHeader('Access-Control-Allow-Origin', '*');
+
+                http.onreadystatechange = function() {//Call a function when the state changes.
+                    if(http.readyState == 4 && http.status == 201) {
+                        // alert(http.responseText);
+                        console.log(http.responseText);
+                        var docBody = context.document.body;
+                        var inspiration = JSON.parse(http.responseText);
+                        var output = String(inspiration.model_text)
+                        console.log(output);
+                        docBody.insertParagraph(output, "End");
+                        return context.sync();
+                    }
+                }   
+                http.send(params);
+
+                // POST Request - this is buggy
 
                 // request.post('<insert URL>', {
                 //     json: {

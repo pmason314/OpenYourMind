@@ -10,11 +10,19 @@ module.exports = {
         {
           test: /\.js$/,
           loader: "babel-loader",
+          // test: /\.json$/,
+          // loader: "json-loader",
           exclude: /node_modules/,
           query: {
             presets: ["es2016"]
           }
         }
     ]
+  },
+  node: {
+    console: true,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
   }
 };
