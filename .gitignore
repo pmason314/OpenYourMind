@@ -394,3 +394,8 @@ __pycache__/
 
 # certs
 oym_plugin/certs/
+# VS Code settings
+.vscode/
+
+# GPT-2 model files
+models/
