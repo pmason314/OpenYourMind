@@ -122,7 +122,9 @@ def generate_text(raw_text):
     length=None
     temperature=1
     top_k=40
-    models_dir='gpt2\\models'
+    # use absolute path if this doesn't work for you
+    models_dir='/mnt/c/Users/frch/Desktop/OneWeek2019/gpt2/models'
+    # models_dir='gpt2\\models'
     ########################
 
     models_dir = os.path.expanduser(os.path.expandvars(models_dir))
