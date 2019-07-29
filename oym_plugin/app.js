@@ -55,26 +55,6 @@
                     }
                 }   
                 http.send(params);
-
-                // POST Request - this is buggy
-
-                // request.post('<insert URL>', {
-                //     json: {
-                //         model_prompt: prompt
-                //     }
-                // }, (error, res, body) => {
-                //     if (error) {
-                //         console.error(error);
-                //         return;
-                //     }
-                //     console.log(`statusCode: ${res.statusCode}`);
-                //     console.log(body);
-
-                //     // Write to Word Document
-                //     var docBody = context.document.body;
-                //     docBody.insertParagraph(body);
-                //     return context.sync();
-                // });
             })
         })
         .catch(function (error) {
@@ -84,23 +64,4 @@
             }
         });
     };
-
-    function replaceText() {
-        Word.run(function (context) {
-            
-            const doc = context.document;
-            const originalRange = doc.getSelection();
-            console.log(originalRange);
-            // originalRange.insertText("many", "Replace");
-
-            return context.sync();
-        })
-        .catch(function (error) {
-            console.log("Error: " + error);
-            if (error instanceof OfficeExtension.Error) {
-                console.log("Debug info: " + JSON.stringify(error.debugInfo));
-            }
-        });
-    }
-  
 })();

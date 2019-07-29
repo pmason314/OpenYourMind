@@ -392,8 +392,6 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
-# certs
-oym_plugin/certs/
 # VS Code settings
 .vscode/
 
